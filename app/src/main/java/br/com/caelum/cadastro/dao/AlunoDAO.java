@@ -1,8 +1,11 @@
 package br.com.caelum.cadastro.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import br.com.caelum.cadastro.modelo.Aluno;
 
 /**
  * Created by android5193 on 09/04/15.
@@ -32,5 +35,18 @@ public class AlunoDAO extends SQLiteOpenHelper {
         String sql = " DROP TABLE IF EXISTS " + TABELA;
         database.execSQL(sql);
         onCreate(database);
+    }
+
+
+    public void insere(Aluno aluno){
+        ContentValues cv = new ContentValues();
+        cv.put("nome", aluno.getNome());
+        cv.put("site", aluno.getSite());
+        cv.put("telefone", aluno.getTelefone());
+        cv.put("nota", aluno.getNota());
+        cv.put("id", aluno.getId());
+        cv.put("endereco", aluno.getEndereco());
+
+        getWritableDatabase().insert("ALUNOS", null, cv);
     }
 }
