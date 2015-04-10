@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.modelo.Aluno;
 
 
@@ -20,6 +21,7 @@ public class FormularioActivity extends ActionBarActivity {
         setContentView(R.layout.activity_formulario);
 
         this.helper = new FormularioHelper(this);
+        this.dao = new AlunoDAO(this);
 
         Button btnSalvar = (Button) findViewById(R.id.formulario_botao);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
@@ -54,24 +56,27 @@ public class FormularioActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
-        //TODO: como eh feito a comunicacao entre apps para acesso de dados
-        //TODO: as configuracoes do app tbm sao salvas no sqllite ?
-        //TODO: vida util dos banco de dados, expurgo ?
-
         switch (id){
             case R.id.menu_formulario_ok:
 
                 Aluno aluno = helper.pegaAlunoDoFormulario();
-                Toast.makeText(FormularioActivity.this, "nome aluno " + aluno.getNome(), Toast.LENGTH_SHORT).show();
+
+                if (helper.temNome()){
+                    dao.insere(aluno);
+                }
+                else {
+                    helper.mostraErro();
+                }
+
                 Log.i("degug", aluno.getNome() );
 
                 finish();
-                return false;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private FormularioHelper helper;
+    private AlunoDAO dao;
 }

@@ -1,0 +1,16 @@
+ACTIVITIES
+
+Como compartilhar dados entre Activities ?
+
+
+
+SQL LITE
+
+Como eh feito a comunicacao entre apps para acesso de dados ?
+
+Vida util dos banco de dados, expurgo ? Dura enquanto o app estiver vivo
+
+Cuidado: Se mais de uma classe implementa a classe sqlLiteOpenHelper apontando pro mesmo banco, somente uma vai cair no metodo onCreate.
+
+As configuracoes do app tbm sao salvas no sqllite ?
+    existe uma sharedPreferences propria para esse intuito

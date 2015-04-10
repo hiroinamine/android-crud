@@ -60,5 +60,8 @@ public class Aluno {
 
     private Double nota;
 
-
+    @Override
+    public String toString(){
+        return String.format("%1$s - %2$s", this.id, this.nome);
+    }
 }

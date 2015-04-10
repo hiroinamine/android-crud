@@ -30,6 +30,14 @@ public class FormularioHelper {
         return this.aluno;
     }
 
+    public boolean temNome(){
+        return !nome.getText().toString().isEmpty();
+    }
+
+    public void mostraErro(){
+        nome.setError("Campo nome nao ppode ser vazio");
+    }
+
     private Aluno aluno;
 
     private EditText nome;

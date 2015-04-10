@@ -12,19 +12,28 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import br.com.caelum.cadastro.dao.AlunoDAO;
+import br.com.caelum.cadastro.modelo.Aluno;
+
 
 public class ListaAlunosActivity extends ActionBarActivity {
 
     private ListView listaAlunos;
+    private AlunoDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        String[] alunos = {"Anderson", "Filipe", "Guilherme", "joana"};
+        this.dao = new AlunoDAO(this);
+        List<Aluno> alunos = this.dao.getLista();
+        dao.close();
+
         this.listaAlunos = (ListView) findViewById(R.id.lista_alunos);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
         this.listaAlunos.setAdapter(adapter);
 
         this.listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {

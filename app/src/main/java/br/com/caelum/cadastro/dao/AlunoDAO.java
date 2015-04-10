@@ -2,8 +2,13 @@ package br.com.caelum.cadastro.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.caelum.cadastro.modelo.Aluno;
 
@@ -22,7 +27,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase database){
         String ddl = "CREATE TABLE " + TABELA
-                + " (id INTEGER PRIMARY KEY, "
+                + " (id INTEGER PRIMARY KEY, "  // QUANDO DECLARA UMA COLUNA DO TIPO "INTEGER PRIMARY KEY", ELE VAI SER UM ALIAS ROWID. SE NAO QUISER UTILIZAR O INT AO INVES DO INTEGER.
                 + " nome TEXT NOT NULL, "
                 + " telefone TEXT, "
                 + " endereco TEXT, "
@@ -47,6 +52,31 @@ public class AlunoDAO extends SQLiteOpenHelper {
         cv.put("id", aluno.getId());
         cv.put("endereco", aluno.getEndereco());
 
-        getWritableDatabase().insert("ALUNOS", null, cv);
+        long row_id = getWritableDatabase().insert("ALUNOS", null, cv);
+        String id = String.format("{0}", row_id);
+        Log.i("debug", id);
+    }
+
+    public List<Aluno> getLista(){
+
+        List<Aluno> alunos = new ArrayList<Aluno>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "SELECT * FROM " + TABELA + ";";
+        Cursor c = db.rawQuery(sql, null);
+        while (c.moveToNext()){
+            Aluno aluno = new Aluno();
+            aluno.setId(c.getLong(c.getColumnIndex("id")));
+            aluno.setNome(c.getString(c.getColumnIndex("nome")));
+            aluno.setEndereco(c.getString(c.getColumnIndex("endereco")));
+            aluno.setSite(c.getString(c.getColumnIndex("site")));
+            aluno.setTelefone(c.getString(c.getColumnIndex("telefone")));
+            aluno.setNota(c.getDouble(c.getColumnIndex("nota")));
+
+            alunos.add(aluno);
+        }
+        c.close();
+
+        return alunos;
     }
 }
