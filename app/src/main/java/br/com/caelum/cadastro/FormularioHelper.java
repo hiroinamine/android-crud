@@ -56,8 +56,39 @@ public class FormularioHelper {
         aluno.setSite(site.getText().toString());
         aluno.setNota(Double.valueOf(nota.getProgress()));
         aluno.setEndereco(endereco.getText().toString());
+
         return this.aluno;
     }
+
+    public void colocaNoFormulario(Aluno aluno){
+        // TODO: fazer via reflection
+        this.aluno = aluno;
+
+       /* String sClassName = "br.com.caelum.cadastro.modelo.Aluno";
+        try {
+            Class classToInvestigate = Class.forName(sClassName);
+            Method[] aClassMethods = classToInvestigate.getDeclaredMethods();
+            for (Method m : aClassMethods){
+                m.
+            }
+
+            // Dynamically do stuff with this class
+            // List constructors, fields, methods, etc.
+
+        } catch (ClassNotFoundException e) {
+            // Class not found!
+        } catch (Exception e) {
+            // Unknown exception
+        }
+*/
+
+        this.nome.setText(aluno.getNome());
+        this.telefone.setText(aluno.getTelefone());
+        this.site.setText(aluno.getSite());
+        this.nota.setProgress(aluno.getNota().intValue());
+        this.endereco.setText(aluno.getEndereco());
+    }
+
 
     public boolean temNome(){
         return !nome.getText().toString().isEmpty();

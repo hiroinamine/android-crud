@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,13 +8,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.modelo.Aluno;
 
 
 public class FormularioActivity extends ActionBarActivity {
+
+    public static final String ALUNO_SELECIONADO = "alunoSelecionado";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +24,13 @@ public class FormularioActivity extends ActionBarActivity {
 
         this.helper = new FormularioHelper(this);
 
-        Button btnSalvar = (Button) findViewById(R.id.formulario_botao);
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        Intent intent = getIntent();
+        Aluno alunoSelecionado = (Aluno) intent.getSerializableExtra(ALUNO_SELECIONADO);
+
+        if (alunoSelecionado != null)
+        {
+            helper.colocaNoFormulario(alunoSelecionado);
+        }
 
         Button btnVoltar = (Button) findViewById(R.id.formulario_voltar);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
@@ -62,15 +64,16 @@ public class FormularioActivity extends ActionBarActivity {
 
                 if (helper.temNome()){
                     this.dao = new AlunoDAO(this);
-                    this.dao.insere(aluno);
+                    this.dao.insereOuAltera(aluno);
                     this.dao.close();
                 }
                 else {
                     helper.mostraErro();
                 }
 
-                Log.i("degug", aluno.getNome() );
-
+                finish();
+                return true;
+            case R.id.menu_formulario_back:
                 finish();
                 return true;
             default:

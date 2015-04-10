@@ -42,21 +42,6 @@ public class AlunoDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-
-    public void insere(Aluno aluno){
-        ContentValues cv = new ContentValues();
-        cv.put("nome", aluno.getNome());
-        cv.put("site", aluno.getSite());
-        cv.put("telefone", aluno.getTelefone());
-        cv.put("nota", aluno.getNota());
-        cv.put("id", aluno.getId());
-        cv.put("endereco", aluno.getEndereco());
-
-        long row_id = getWritableDatabase().insert("ALUNOS", null, cv);
-        String id = String.format("{0}", row_id);
-        Log.i("debug", id);
-    }
-
     public List<Aluno> getLista(){
 
         List<Aluno> alunos = new ArrayList<Aluno>();
@@ -84,5 +69,22 @@ public class AlunoDAO extends SQLiteOpenHelper {
         SQLiteDatabase database = getWritableDatabase();
         String[] args = { aluno.getId().toString()};
         database.delete("Alunos", "id=?", args);
+    }
+
+    public void insereOuAltera(Aluno aluno){
+        ContentValues values = new ContentValues();
+        values.put("nome", aluno.getNome());
+        values.put("site", aluno.getSite());
+        values.put("telefone", aluno.getTelefone());
+        values.put("nota", aluno.getNota());
+        values.put("endereco", aluno.getEndereco());
+
+        if (aluno.getId() == null) {
+            long row_id = getWritableDatabase().insert(TABELA, null, values);
+        }
+        else {
+            String[] args = {aluno.getId().toString()};
+            long row_id = getWritableDatabase().update(TABELA, values, "id=?", args);
+        }
     }
 }

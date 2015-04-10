@@ -37,15 +37,10 @@
             android:layout_marginBottom="10dp"
             android:numStars="5"/>
 
-        <Button android:id="@+id/formulario_botao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Salvar"/>
-
         <Button android:id="@+id/formulario_voltar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Voltar"/>
+            android:text="Botao Magico"/>
 
 
     </LinearLayout>

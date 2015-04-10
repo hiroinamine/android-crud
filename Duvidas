@@ -1,8 +1,8 @@
 ACTIVITIES
 
 Como compartilhar dados entre Activities ?
-
-
+Quando vai de uma activity para outra, a passagem eh feita por parametro atraves da Intent
+Na volta eh feito atraves de .... ???
 
 SQL LITE
 

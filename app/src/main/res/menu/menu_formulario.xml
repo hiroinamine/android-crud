@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.com.caelum.cadastro.FormularioActivity">
 
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/menu_formulario_back" android:title="@string/action_settings"
         android:orderInCategory="100" android:icon="@android:drawable/ic_media_rew"  app:showAsAction="always" />
 
     <item android:id="@+id/menu_formulario_ok"

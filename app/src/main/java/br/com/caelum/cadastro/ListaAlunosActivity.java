@@ -32,10 +32,21 @@ public class ListaAlunosActivity extends ActionBarActivity {
 
         this.listaAlunos = (ListView) findViewById(R.id.lista_alunos);
 
+        this.listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Editar o aluno
+                Aluno alunoSelecionado = (Aluno)parent.getItemAtPosition(position);
+                Intent edicao = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                edicao.putExtra(FormularioActivity.ALUNO_SELECIONADO, alunoSelecionado);
+                startActivity(edicao);
+            }
+        });
+
         this.listaAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                return false;
+                return false; // return false nao chama o click simples
             }
         });
 
@@ -86,7 +97,7 @@ public class ListaAlunosActivity extends ActionBarActivity {
                         .setMessage("Deseja mesmo deletar ?")
                         .setPositiveButton("Quero",
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which){
+                                    public void onClick(DialogInterface dialog, int which) {
                                         AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                                         dao.deletar(alunoSelecionado);
                                         dao.close();
