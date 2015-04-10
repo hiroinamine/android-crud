@@ -1,8 +1,11 @@
 package br.com.caelum.cadastro;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,35 +24,22 @@ import br.com.caelum.cadastro.modelo.Aluno;
 public class ListaAlunosActivity extends ActionBarActivity {
 
     private ListView listaAlunos;
-    private AlunoDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        this.dao = new AlunoDAO(this);
-        List<Aluno> alunos = this.dao.getLista();
-        dao.close();
-
         this.listaAlunos = (ListView) findViewById(R.id.lista_alunos);
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
-        this.listaAlunos.setAdapter(adapter);
-
-        this.listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaAlunosActivity.this, "Clicou na pos" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         this.listaAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaAlunosActivity.this, "Clique  longo na posicao " + position, Toast.LENGTH_SHORT).show();
-                return true;
+                return false;
             }
         });
+
+        registerForContextMenu(this.listaAlunos);
 
         Button botaoAdiciona = (Button)findViewById(R.id.lista_alunos_floating_button);
         botaoAdiciona.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +49,57 @@ public class ListaAlunosActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
-
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        this.carregaLista();
+    }
+
+    protected void carregaLista(){
+        AlunoDAO dao = new AlunoDAO(this);
+        List<Aluno> alunos = dao.getLista();
+        dao.close();
+
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
+        this.listaAlunos.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+        AdapterView.AdapterContextMenuInfo contextInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Aluno alunoSelecionado = (Aluno)this.listaAlunos.getAdapter().getItem(contextInfo.position);
+
+        menu.add("Ligar");
+        menu.add("Enviar SMS");
+        menu.add("Achar no Mapa");
+        menu.add("Navegar no site");
+        MenuItem deletar = menu.add("Deletar");
+        deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                new AlertDialog.Builder(ListaAlunosActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Deletar")
+                        .setMessage("Deseja mesmo deletar ?")
+                        .setPositiveButton("Quero",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which){
+                                        AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
+                                        dao.deletar(alunoSelecionado);
+                                        dao.close();
+                                        carregaLista();
+                                    }
+                                }).setNegativeButton("Nao", null).show();
+
+                return false;
+            }
+        });
+
+        this.carregaLista();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -21,7 +21,6 @@ public class FormularioActivity extends ActionBarActivity {
         setContentView(R.layout.activity_formulario);
 
         this.helper = new FormularioHelper(this);
-        this.dao = new AlunoDAO(this);
 
         Button btnSalvar = (Button) findViewById(R.id.formulario_botao);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +61,9 @@ public class FormularioActivity extends ActionBarActivity {
                 Aluno aluno = helper.pegaAlunoDoFormulario();
 
                 if (helper.temNome()){
-                    dao.insere(aluno);
+                    this.dao = new AlunoDAO(this);
+                    this.dao.insere(aluno);
+                    this.dao.close();
                 }
                 else {
                     helper.mostraErro();

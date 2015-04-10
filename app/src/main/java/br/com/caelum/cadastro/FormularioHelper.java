@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 import br.com.caelum.cadastro.modelo.Aluno;
 
 /**
@@ -14,6 +17,31 @@ public class FormularioHelper {
     public FormularioHelper(FormularioActivity activity){
         this.aluno = new Aluno();
 
+        // TODO: fazer via reflection
+
+        /*
+        Class cls = Class.forName("br.com.caelum.cadastro.modelo.Aluno");
+        Method methlist[] = cls.getDeclaredMethods();
+
+        for (int i = 0; i < methlist.length; i++) {
+            Method m = methlist[i];
+            System.out.println("nome = " + m.getName());
+            System.out.println("membro da classe = " + m.getDeclaringClass());
+            System.out.println("modificador = " + Modifier.toString(m.getModifiers()));
+            Class pvec[] = m.getParameterTypes();
+
+            for (int j =Class 0; j < pvec.length; j++)
+                System.out.println("parâmetro #" + j + " " + pvec[j]);
+
+            Class evec[] = m.getExceptionTypes();
+            for (int j = 0; j < evec.length; j++)
+                System.out.println("exceção #" + j + " " + evec[j]);
+
+            System.out.println("tipo de retorno = " + m.getReturnType());
+            System.out.println("-----");
+        }
+        */
+
         this.nome = (EditText) activity.findViewById(R.id.formulario_nome);
         this.telefone = (EditText) activity.findViewById(R.id.formulario_telefone);
         this.site = (EditText) activity.findViewById(R.id.formulario_site);
@@ -22,6 +50,7 @@ public class FormularioHelper {
     }
 
     public Aluno pegaAlunoDoFormulario(){
+        // TODO: fazer via reflection
         aluno.setNome(nome.getText().toString());
         aluno.setTelefone(telefone.getText().toString());
         aluno.setSite(site.getText().toString());
