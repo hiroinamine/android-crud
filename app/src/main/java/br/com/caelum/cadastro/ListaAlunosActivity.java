@@ -3,8 +3,10 @@ package br.com.caelum.cadastro;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,10 +85,30 @@ public class ListaAlunosActivity extends ActionBarActivity {
         AdapterView.AdapterContextMenuInfo contextInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Aluno alunoSelecionado = (Aluno)this.listaAlunos.getAdapter().getItem(contextInfo.position);
 
-        menu.add("Ligar");
-        menu.add("Enviar SMS");
-        menu.add("Achar no Mapa");
-        menu.add("Navegar no site");
+        Intent intentLigar = new Intent(Intent.ACTION_CALL);
+        intentLigar.setData(Uri.parse("tel:" + alunoSelecionado.getTelefone()));
+        MenuItem ligar = menu.add("Ligar");
+        ligar.setIntent(intentLigar);
+
+        MenuItem sms = menu.add("Enviar SMS");
+        Intent intentSms = new Intent(Intent.ACTION_VIEW);
+        intentSms.setData(Uri.parse("sms:"+ alunoSelecionado.getTelefone()));
+        intentSms.putExtra("sms_body", "Mensagem");
+        sms.setIntent(intentSms);
+
+        Intent intentMapa = new Intent(Intent.ACTION_VIEW);
+        intentMapa.setData(Uri.parse("geo:0,0?z=14&q=" + Uri.encode(alunoSelecionado.getEndereco())));
+        MenuItem mapa = menu.add("Achar no Mapa");
+        mapa.setIntent(intentMapa);
+
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+        String site = alunoSelecionado.getSite();
+        if (!site.startsWith("http://"))
+            site = "http://" + site;
+        intentSite.setData(Uri.parse(site));
+        MenuItem itemSite = menu.add("Navegar no site");
+        itemSite.setIntent(intentSite);
+
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

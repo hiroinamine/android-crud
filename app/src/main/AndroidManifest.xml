@@ -20,6 +20,10 @@
             android:label="@string/title_activity_formulario" >
 
         </activity>
+
     </application>
+
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
 </manifest>

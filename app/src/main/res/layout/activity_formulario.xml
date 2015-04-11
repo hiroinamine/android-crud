@@ -6,6 +6,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" android:orientation="vertical">
 
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="235dp">
+
+            <ImageView
+                android:id="@+id/formulario_foto"
+                android:src="@drawable/person"
+                android:layout_width="match_parent"
+                android:background="#00A8EC"
+                android:layout_height="200dp" />
+
+            <Button android:id="@+id/formulario_foto_botao"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="20dp"
+                android:elevation="5dp"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/formulario_foto_button"/>
+
+        </RelativeLayout>
+
+
         <EditText android:id="@+id/formulario_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

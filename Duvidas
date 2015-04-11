@@ -14,3 +14,7 @@ Cuidado: Se mais de uma classe implementa a classe sqlLiteOpenHelper apontando p
 
 As configuracoes do app tbm sao salvas no sqllite ?
     existe uma sharedPreferences propria para esse intuito
+
+
+COMUNICACAO ENTRE APP
+Uso de intent implicita, o app que esta recebendo a requisicao precisa implementar o broadcast que saiba implementar a action.
