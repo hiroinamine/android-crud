@@ -39,6 +39,8 @@ public class AlunoDAO extends SQLiteOpenHelper {
 
     public void onUpgrade(SQLiteDatabase database, int versaoAntiga, int versaoNova) {
         String sql = " DROP TABLE IF EXISTS " + TABELA;
+        // USAR ALTER TABLE NO CASO REAL, PARA NAO PERDER OS DADOS QUE JA ESTAVAM NA BASE
+        // String sql = " ALTER TABLE  " + TABELA + " ADD COLUMN caminhoFoto TEXT; ";
         database.execSQL(sql);
         onCreate(database);
     }

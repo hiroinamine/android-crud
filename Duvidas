@@ -18,3 +18,7 @@ As configuracoes do app tbm sao salvas no sqllite ?
 
 COMUNICACAO ENTRE APP
 Uso de intent implicita, o app que esta recebendo a requisicao precisa implementar o broadcast que saiba implementar a action.
+
+
+LAYOUT PERSONALIZADO DE LISTA
+Android cria a lista que o usuario ve mais uma acima e uma abaixo e nao todas que estao na lista para ser exibido. Mostra sobre demanda.
