@@ -92,4 +92,15 @@ public class AlunoDAO extends SQLiteOpenHelper {
             long row_id = getWritableDatabase().update(TABELA, values, "id=?", args);
         }
     }
+
+    public boolean isAluno(String telefone){
+        String[] parametros = {telefone};
+
+        Cursor rawQuery = getReadableDatabase().rawQuery(" SELECT telefone FROM " + TABELA
+                + " WHERE telefone = ?", parametros  );
+        int total = rawQuery.getCount();
+        rawQuery.close();
+        return total > 0;
+    }
+
 }

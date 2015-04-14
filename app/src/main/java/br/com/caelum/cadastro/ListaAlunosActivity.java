@@ -1,8 +1,11 @@
 package br.com.caelum.cadastro;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,12 +27,26 @@ import br.com.caelum.cadastro.modelo.Aluno;
 
 public class ListaAlunosActivity extends ActionBarActivity {
 
+    /*
+        Variavel responsavel por ficar ouvindo a bateria.
+    */
+    private BroadcastReceiver bateria = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int valor = intent.getIntExtra("level", 0);
+            Toast.makeText(context, valor + "%", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
     private ListView listaAlunos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+
+        registerReceiver(bateria, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         this.listaAlunos = (ListView) findViewById(R.id.lista_alunos);
 

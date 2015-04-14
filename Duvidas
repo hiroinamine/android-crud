@@ -22,3 +22,10 @@ Uso de intent implicita, o app que esta recebendo a requisicao precisa implement
 
 LAYOUT PERSONALIZADO DE LISTA
 Android cria a lista que o usuario ve mais uma acima e uma abaixo e nao todas que estao na lista para ser exibido. Mostra sobre demanda.
+
+
+REPOSITORIO DE COMPONENTES
+Android-arsenal.com
+
+BROADCAST (manager)
+Ponte entre eventos internos e externos com os apps.
