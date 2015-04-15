@@ -29,3 +29,6 @@ Android-arsenal.com
 
 BROADCAST (manager)
 Ponte entre eventos internos e externos com os apps.
+
+NAS VERSOES ATUAIS ANDROID,
+A aplicacao nao permite que a mainThread fique esperando resposta de algum processo. Por ex.: fazer um httprequest para um servico, gera ero NetworkOnMainThreadException !
