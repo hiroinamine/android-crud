@@ -21,10 +21,9 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.caelum.cadastro.adapter.ListaAlunosAdapter;
-import br.com.caelum.cadastro.converter.AlunoConverter;
 import br.com.caelum.cadastro.dao.AlunoDAO;
 import br.com.caelum.cadastro.modelo.Aluno;
-import br.com.caelum.cadastro.support.WebClient;
+import br.com.caelum.cadastro.task.EnviaContatosTask;
 
 
 public class ListaAlunosActivity extends ActionBarActivity {
@@ -168,14 +167,9 @@ public class ListaAlunosActivity extends ActionBarActivity {
 
         switch (id){
             case R.id.menu_enviar_notas:
-                AlunoDAO dao = new AlunoDAO(this);
-                List<Aluno> alunos = dao.getLista();
-                dao.close();
 
-                String json = new AlunoConverter().toJSON(alunos);
-                String media = new WebClient().post(json);
+                new EnviaContatosTask(this).execute();
 
-                Toast.makeText(this, media, Toast.LENGTH_LONG).show();
                 return true;
         }
 

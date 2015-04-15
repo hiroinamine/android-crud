@@ -14,14 +14,15 @@ import org.apache.http.util.EntityUtils;
  */
 public class WebClient {
 
-    private static final String URL = "http://wwww.caelum.com.br/mobile";
+    private static final String URL = "http://www.caelum.com.br/mobile";
 
     public String post(String json){
         try {
             HttpPost post = new HttpPost(URL);
             post.setEntity(new StringEntity(json));
-            post.setHeader("Content-type", "application/json");
             post.setHeader("Accept", "application/json");
+            post.setHeader("Contenttype", "application/json");
+
 
             HttpClient client = new DefaultHttpClient();
             HttpResponse response = client.execute(post);
@@ -30,7 +31,7 @@ public class WebClient {
         }
         catch (Exception e){
             Log.e("Debug", e.toString(), e);
-            return null;
+            return e.toString();
         }
     }
 
