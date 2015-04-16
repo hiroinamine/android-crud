@@ -30,7 +30,6 @@ public class WebClient {
             return EntityUtils.toString(response.getEntity());
         }
         catch (Exception e){
-            Log.e("Debug", e.toString(), e);
             return e.toString();
         }
     }

@@ -82,6 +82,13 @@ public class ListaAlunosActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(bateria);
+    }
+
+    @Override
     protected void onResume(){
         super.onResume();
         this.carregaLista();
@@ -167,12 +174,16 @@ public class ListaAlunosActivity extends ActionBarActivity {
 
         switch (id){
             case R.id.menu_enviar_notas:
-
                 new EnviaContatosTask(this).execute();
-
+                return true;
+            case R.id.menu_receber_provas:
+                Intent provas = new Intent(this, ProvasActivity.class);
+                startActivity(provas);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
