@@ -47,8 +47,6 @@ public class ListaAlunosActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        registerReceiver(bateria, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
         this.listaAlunos = (ListView) findViewById(R.id.lista_alunos);
 
         this.listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,8 +80,8 @@ public class ListaAlunosActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
 
         unregisterReceiver(bateria);
     }
@@ -91,6 +89,8 @@ public class ListaAlunosActivity extends ActionBarActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        registerReceiver(bateria, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
         this.carregaLista();
     }
 

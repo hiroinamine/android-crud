@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 
+import br.com.caelum.cadastro.Fragment.DetalhesProvaFragment;
 import br.com.caelum.cadastro.Fragment.ListaProvasFragment;
 
 /**
@@ -21,7 +22,15 @@ public class ProvasActivity extends ActionBarActivity {
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction tx = manager.beginTransaction();
+
         tx.replace(R.id.provas_view, new ListaProvasFragment());
+        if (isTablet()){
+            tx.replace(R.id.provas_detalhes, new DetalhesProvaFragment());
+        }
         tx.commit();
+    }
+
+    private boolean isTablet(){
+        return getResources().getBoolean(R.bool.isTablet);
     }
 }
