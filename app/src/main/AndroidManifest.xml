@@ -28,6 +28,9 @@
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
                 android:value="AIzaSyBPvrB7HxMEMvxEpIY7sH2n1nLgEJ3LSbA" />
 
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <receiver android:name="br.com.caelum.cadastro.receiver.SMSReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
@@ -45,6 +48,10 @@
         <activity
             android:name=".FormularioActivity"
             android:label="@string/title_activity_formulario" >
+        </activity>
+        <activity
+            android:name=".MostraAlunosActivity"
+            android:label="Cadastro" >
         </activity>
         <activity
             android:name=".ProvasActivity"
