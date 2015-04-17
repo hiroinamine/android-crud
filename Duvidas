@@ -38,5 +38,5 @@ ADMOB - para cadastro de ad, AdView (Controle que exibe propagandas)
 
 
 FRAGMENTS - Toda vez que rotaciona a tela o android mata a activity e cria novamente, para armazenar os dados guardar no bundle.
-
-width ou height = 0dp - quando usado weight
+width ou height = 0dp - quando usado weight (semelhante porcentagem)
+Para passar dados de uma fragment para outra usar bundle

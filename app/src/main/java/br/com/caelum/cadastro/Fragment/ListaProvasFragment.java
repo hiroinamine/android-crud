@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.caelum.cadastro.ProvasActivity;
 import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.modelo.Prova;
 
@@ -46,7 +47,8 @@ public class ListaProvasFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Prova selecionada = (Prova) adapter.getItemAtPosition(position);
 
-                Toast.makeText(getActivity(), "Prova selecionada: " + selecionada, Toast.LENGTH_LONG).show();
+                ProvasActivity activity = (ProvasActivity) getActivity();
+                activity.selecionaProva(selecionada);// TODO: USAR PADRAO DELEGATE !
             }
         });
 

@@ -11,6 +11,7 @@ public class Prova implements Serializable{
     private String data;
     private String materia;
     private String descricao;
+    private List<String> topicos = new ArrayList<String>();
 
     public List<String> getTopicos() {
         return topicos;
@@ -43,8 +44,6 @@ public class Prova implements Serializable{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    private List<String> topicos = new ArrayList<String>();
 
     public Prova(String data, String materia){
         this.data = data;
